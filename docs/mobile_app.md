@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — Mobile Application
+# FireGuard — Mobile Application
 
 ## 1. Overview
 
@@ -527,4 +527,3 @@ class ApiService {
 | `settings_screen.png` | App settings screen |
 | `profile_screen.png` | User profile editing screen |
 | `notification_history.png` | Local notification history |
-]]>

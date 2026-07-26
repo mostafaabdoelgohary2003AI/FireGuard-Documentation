@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — AI Detection Pipeline
+# FireGuard — AI Detection Pipeline
 
 ## 1. Overview
 
@@ -392,4 +392,3 @@ flowchart TB
 - **Hardcoded API URL** — The production API URL is hardcoded in the script. This should be moved to an environment variable for flexibility.
 - **First detection only** — When multiple objects are detected in a single frame, only the first detection is processed (`break` after the first box).
 - **No GPU requirement** — The model can run on CPU, but inference speed depends on hardware capabilities.
-]]>

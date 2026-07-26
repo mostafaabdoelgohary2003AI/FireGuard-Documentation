@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — Glossary
+# FireGuard — Glossary
 
 ## Official Terminology Reference
 
@@ -37,4 +37,3 @@ This glossary defines the official terminology used throughout the FireGuard pro
 | **MulticastMessage** | A Firebase Admin SDK message type that sends the same notification to multiple device tokens in a single API call. Used by `send_fire_alert_to_all()` and `send_resolved_alert()` in `notifications/fcm.py` to efficiently notify all opted-in users. |
 | **AlertPayload** | A Dart class in the Flutter app (`core/models/notification_payload.dart`) that maps the FCM `data` payload to a structured object. Contains fields for `type`, `eventId`, `cameraId`, `cameraName`, `location`, `zone`, `eventType`, `aiConfidence`, and `detectedAt`. Used by the `AlertScreen` to display event details. |
 | **DatabaseService** | A singleton service in the Flutter app (`core/services/database_service.dart`) that manages a local SQLite database (`fire_guard.db`) for caching notification history on the device. Enables offline access to past notifications. |
-]]>

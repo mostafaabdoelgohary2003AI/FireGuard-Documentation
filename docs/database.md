@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — Database
+# FireGuard — Database
 
 ## 1. Overview
 
@@ -369,4 +369,3 @@ The `event_id` field has a `UNIQUE` constraint with `ConflictAlgorithm.replace` 
 - **No database backup strategy** — The SQLite3 file on PythonAnywhere is not automatically backed up.
 - **File-based storage** — SQLite3 is a single file (`db.sqlite3`), making it simple to deploy but not suitable for distributed or high-availability setups.
 - **No database indexes** — Beyond Django's default primary key and foreign key indexes, no custom indexes are defined. Query performance is adequate for the current data volume.
-]]>

@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — System Overview
+# FireGuard — System Overview
 
 ## 1. Introduction
 
@@ -180,4 +180,3 @@ graph TB
 - **No automated testing** — No unit or integration test suites are implemented.
 - **Manual deployment** — No CI/CD pipeline; deployment is manual.
 - **PythonAnywhere free tier** — Subject to resource and bandwidth limitations.
-]]>

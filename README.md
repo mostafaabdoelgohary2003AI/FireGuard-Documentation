@@ -620,4 +620,3 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 ```
 MIT License — Copyright (c) 2026 Mostafa Abdo Fathy Abdo El-Gohary, Abdelrahman Reda
 ```
-]]>

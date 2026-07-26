@@ -1,4 +1,4 @@
-<![CDATA[# Contributing to FireGuard
+# Contributing to FireGuard
 
 Thank you for your interest in contributing to FireGuard! This document provides guidelines and instructions for contributing to the project.
 
@@ -265,4 +265,3 @@ This project is developed by the following team (alphabetical order):
 ## License
 
 By contributing to FireGuard, you agree that your contributions will be licensed under the [MIT License](LICENSE).
-]]>

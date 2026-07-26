@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — Backend
+# FireGuard — Backend
 
 ## 1. Overview
 
@@ -551,4 +551,3 @@ The SQLite3 database file (`db.sqlite3`) is stored in the `backend/` directory. 
 | `pillow` | 12.2.0 | Image field support |
 | `requests` | 2.33.1 | HTTP utilities |
 | `gunicorn` | 21.2.0 | Production WSGI server |
-]]>

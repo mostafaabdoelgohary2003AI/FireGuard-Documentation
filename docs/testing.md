@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — Testing
+# FireGuard — Testing
 
 ## 1. Overview
 
@@ -255,4 +255,3 @@ If no token is provided, the system uses the user's most recent active device to
 | CI/CD | Integrate GitHub Actions for automated test execution on push/PR |
 
 > **Note:** These recommendations are for future development iterations. They are **not implemented in the current project version**.
-]]>

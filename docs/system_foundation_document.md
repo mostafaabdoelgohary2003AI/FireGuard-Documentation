@@ -7,7 +7,7 @@ The FireGuard system is an AI-powered fire and smoke detection and emergency ale
 Traditional fire alarm systems primarily rely on physical sensors (e.g., smoke or thermal detectors) that often require physical contact or proximity to the hazard, leading to delayed detection in large or open spaces [1]. Furthermore, conventional systems lack visual verification, making it difficult to assess the severity of the situation remotely. There is a need for an automated, visually intelligent system capable of detecting fire and smoke at an early stage and instantly alerting relevant personnel.
 
 ## 3. Proposed Solution
-The proposed solution, FireGuard, utilizes a camera-based approach combined with the YOLOv8 object detection model to visually identify fire and smoke in real-time. Upon detection, the AI service transmits an event payload, including a captured snapshot and confidence metrics, to a centralized Django-based backend. The backend records the event and dispatches a push notification via Firebase Cloud Messaging (FCM) to a Flutter-based mobile application, enabling immediate remote assessment and response.
+The proposed solution, FireGuard, utilizes a camera-based approach combined with the YOLOv26 object detection model to visually identify fire and smoke in real-time. Upon detection, the AI service transmits an event payload, including a captured snapshot and confidence metrics, to a centralized Django-based backend. The backend records the event and dispatches a push notification via Firebase Cloud Messaging (FCM) to a Flutter-based mobile application, enabling immediate remote assessment and response.
 
 ## 4. Project Objectives
 *   To implement a real-time computer vision pipeline capable of detecting fire and smoke using a live camera feed.
@@ -17,7 +17,7 @@ The proposed solution, FireGuard, utilizes a camera-based approach combined with
 
 ## 5. Project Scope
 The scope of the current FireGuard implementation includes:
-*   **AI Inference:** Local object detection using a pre-trained YOLOv8 model (`best.pt`) on video frames captured via USB/WiFi cameras.
+*   **AI Inference:** Local object detection using a pre-trained YOLOv26 model (`best.pt`) on video frames captured via USB/WiFi cameras.
 *   **Backend Services:** A monolithic Django application utilizing Django REST Framework (DRF) for API endpoints and SQLite3 as the primary database.
 *   **Mobile Client:** A Flutter mobile application designed to receive and display alert notifications.
 *   **Alert Mechanism:** Image snapshots and confidence scores sent to the backend, triggering FCM push notifications.
@@ -38,11 +38,11 @@ The scope of the current FireGuard implementation includes:
 *   **NFR3 (Cross-Platform Compatibility):** The mobile application must be developed using Flutter to support both Android and iOS platforms using a single codebase.
 
 ## 8. System Methodology
-The project follows a modular, component-based methodology, where the system is divided into three distinct layers: the Edge/AI Layer (Python/YOLOv8), the Server Layer (Django/SQLite3), and the Presentation Layer (Flutter). Communication between layers is strictly handled via HTTP/REST and FCM protocols, ensuring separation of concerns.
+The project follows a modular, component-based methodology, where the system is divided into three distinct layers: the Edge/AI Layer (Python/YOLOv26), the Server Layer (Django/SQLite3), and the Presentation Layer (Flutter). Communication between layers is strictly handled via HTTP/REST and FCM protocols, ensuring separation of concerns.
 
 ## 9. High-Level System Workflow
 1.  **Capture:** The `camera.py` script opens a local video capture stream using OpenCV.
-2.  **Inference:** Frames are passed to the YOLOv8 model for inference.
+2.  **Inference:** Frames are passed to the YOLOv26 model for inference.
 3.  **Detection:** If the model detects fire or smoke with a confidence > 50%, an event is triggered.
 4.  **Reporting:** The script saves a local snapshot and sends a POST request with multipart form data to the Django REST API (`/api/events/`).
 5.  **Storage & Push:** The Django backend saves the event in the SQLite3 database and triggers a push notification via the Firebase Admin SDK.
@@ -53,7 +53,7 @@ The project follows a modular, component-based methodology, where the system is 
 ```mermaid
 graph TD
     A[Camera Feed] --> B[OpenCV Frame Capture]
-    B --> C{YOLOv8 Inference}
+    B --> C{YOLOv26 Inference}
     C -- Detection > 50% --> D[Capture Snapshot]
     C -- No Detection --> B
     D --> E[REST API POST Request]
@@ -70,35 +70,35 @@ The FireGuard architecture is a classic client-server model augmented with an ed
 
 ```mermaid
 architecture-beta
-    group edge(Server)[Edge Node]
-    group cloud(Cloud)[Backend Server]
-    group mobile(Mobile)[End User]
+    group edge(server)[Edge Node]
+    group cloud(server)[Backend Server]
+    group mobile(device)[End User]
 
-    service cam(Internet)[Webcam/USB Camera] in edge
-    service ai(Server)[Python AI Script] in edge
+    service cam(camera)[Webcam USB Camera] in edge
+    service ai(server)[Python AI Script] in edge
     
-    service api(Server)[Django REST API] in cloud
-    service db(Database)[SQLite3] in cloud
-    service fcm(Cloud)[Firebase FCM] in cloud
+    service api(server)[Django REST API] in cloud
+    service db(database)[SQLite3 Database] in cloud
+    service fcm(cloud)[Firebase FCM] in cloud
 
-    service app(Mobile)[Flutter App] in mobile
+    service app(mobile)[Flutter Mobile App] in mobile
 
-    cam:R --> L:ai
-    ai:R --> L:api
-    api:B --> T:db
-    api:R --> L:fcm
-    fcm:R --> L:app
+    cam:R -- L:ai
+    ai:R -- L:api
+    api:B -- T:db
+    api:R -- L:fcm
+    fcm:R -- L:app
 ```
 
 ## 11. Technology Stack Analysis
-*   **AI/Computer Vision:** Python, OpenCV (`cv2`), PyTorch, Ultralytics YOLOv8 (`best.pt`).
+*   **AI/Computer Vision:** Python, OpenCV (`cv2`), PyTorch, Ultralytics YOLOv26 (`best.pt`).
 *   **Backend Framework:** Django, Django REST Framework (DRF), Django CORS Headers.
 *   **Database:** SQLite3 (Local file-based relational database). Advanced RDBMS are not implemented in the current project version.
 *   **Mobile Application:** Dart, Flutter framework.
 *   **Third-Party Services:** Firebase Admin SDK (Backend), Firebase Cloud Messaging (Frontend/Backend).
 
 ## 12. System Components Description
-*   **`ai_service/camera.py`**: The core AI execution script. Manages the video loop, executes the YOLOv8 model, handles the 10-second cooldown logic, and formats the multipart API request.
+*   **`ai_service/camera.py`**: The core AI execution script. Manages the video loop, executes the YOLOv26 model, handles the 10-second cooldown logic, and formats the multipart API request.
 *   **`backend/events/models.py`**: Defines the `FireEvent` schema, including fields for `camera`, `event_type` (fire/smoke), `status` (active/resolved/false_alarm), `ai_confidence`, and `snapshot` image.
 *   **`backend/fireguard/firebase.py`**: Handles the initialization of the Firebase Admin SDK using a local `firebase_credentials.json` file.
 *   **`frontend/lib/`**: Contains the Flutter UI code, Firebase initialization (`firebase_options.dart`), and core application logic.
@@ -116,28 +116,35 @@ architecture-beta
 *   **UC5: Manage System Data:** The System Administrator manages cameras and views all generated events.
 
 ```mermaid
-usecase
-    actor "AI Camera Node" as AI
-    actor "End User" as User
-    actor "Admin" as Admin
+flowchart LR
 
-    usecase "Detect Fire/Smoke" as UC1
-    usecase "Report Event to API" as UC2
-    usecase "Receive Push Notification" as UC3
-    usecase "Review Event Snapshot" as UC4
-    usecase "Manage System Data" as UC5
+    subgraph System[FireGuard System]
+
+        UC1((Detect Fire / Smoke))
+        UC2((Report Event to API))
+        UC3((Receive Push Notification))
+        UC4((Review Event Snapshot))
+        UC5((Manage System Data))
+
+    end
+
+    AI[AI Camera Node]
+    USER[End User]
+    ADMIN[Administrator]
 
     AI --> UC1
     AI --> UC2
-    User --> UC3
-    User --> UC4
-    Admin --> UC5
+
+    USER --> UC3
+    USER --> UC4
+
+    ADMIN --> UC5
 ```
 
 ## 15. Data Flow Overview
 Data flows unidirectionally from the physical environment to the end user.
 1. Visual data is ingested as pixel arrays by OpenCV.
-2. The YOLOv8 model outputs bounding boxes, class IDs, and confidence tensors.
+2. The YOLOv26 model outputs bounding boxes, class IDs, and confidence tensors.
 3. The AI script formats this into JSON data and binary image data.
 4. The backend deserializes the data, creates an SQLite database record, and formats an FCM message payload.
 5. FCM routes the JSON payload to the specific mobile device token.
@@ -170,7 +177,7 @@ Integration between the AI script and the backend is achieved via a RESTful POST
 ```mermaid
 sequenceDiagram
     participant Cam as USB/WiFi Camera
-    participant AI as camera.py (YOLOv8)
+    participant AI as camera.py (YOLOv26)
     participant API as Django API
     participant DB as SQLite3
     participant FCM as Firebase
@@ -178,7 +185,7 @@ sequenceDiagram
 
     loop Every Frame
         Cam->>AI: Raw Video Frame
-        AI->>AI: YOLOv8 Inference
+        AI->>AI: YOLOv26 Inference
         alt Detection Confidence > 50% & Cooldown Passed
             AI->>AI: Save snapshot.jpg
             AI->>API: POST /api/events/ (Data + Image)

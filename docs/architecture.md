@@ -1,4 +1,4 @@
-<![CDATA[# FireGuard — Architecture
+# FireGuard — Architecture
 
 ## 1. High-Level Architecture
 
@@ -362,4 +362,3 @@ flowchart TB
     USER -->|Register / Login| P6["P6: Authentication<br/>(accounts app)"]
     P6 -->|CRUD| D5[(D5: SQLite3<br/>User, UserProfile, Token)]
 ```
-]]>
